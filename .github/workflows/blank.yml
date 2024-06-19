@@ -1,0 +1,69 @@
+import csv
+import datetime
+
+
+listamostrar=[]
+lista=[]
+#FUNciones
+
+fecha=(datetime.datetime.now())
+
+
+contador=0
+
+
+opcion="7"
+
+while opcion!="0":
+    print("1. Registrar Reclamo\n2. Listar Reclamos\n3. Respaldar Reclamos\n4. Salir")
+    opcion=input("Ingrese su opcion a elegir")
+
+    if opcion=="1":
+        
+        rut=input("Ingrese su Rut:")
+        if len(rut)>10:
+          ("Rut invalido")
+          exit()
+         
+        try:
+         monto=int(input("Ingrese el valor de la compra:$"))
+        except ValueError:
+         print("No se aceptan caracteres")
+         exit()
+        montocalculo=str(monto/1000)
+        montoenmiles=str(montocalculo+" miles_de_pesos")
+        print(montoenmiles)
+
+        reclamo=input("Ingrese su reclamo (No mas de 20 caracteres porfavor)")+("\n")
+        if len(reclamo)>20:
+         print("Error ha ingresado mas de 20 caracteres")
+         exit()
+        contador+=1
+
+
+        listamostrar.append(rut)
+        listamostrar.append(montoenmiles)
+        listamostrar.append(reclamo)
+        
+   
+        
+        
+
+    if opcion=="2":
+       if contador>0:
+        print("Rut|monto|reclamo|fecha")
+        print(*listamostrar)
+       else:
+          print("No hay nada registrado")
+          exit()
+    
+    if opcion=="3":
+     with open("Reclamos","w",newline="") as archivo:
+       escritor = csv.writer(archivo,delimiter=",")
+       escritor.writerow(["Rut,Montoenmiles,Reclamos,Fecha"])
+       escritor.writerow(listamostrar+[fecha])
+
+          
+print("Programa finalizado")
+
+
